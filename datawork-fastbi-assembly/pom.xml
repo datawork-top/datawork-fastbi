@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>davinci-parent_0.3.1</artifactId>
-        <groupId>edp.davinci</groupId>
-        <version>0.3.1-SNAPSHOT</version>
+        <artifactId>datawork-fastbi</artifactId>
+        <groupId>top.datawork</groupId>
+        <version>2.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>davinci-assembly_0.3.1</artifactId>
+    <artifactId>datawork-fastbi-assembly</artifactId>
     <packaging>pom</packaging>
 
     <licenses>
@@ -24,8 +24,6 @@
 
     <properties>
         <skipTests>true</skipTests>
-
-        <main.basedir>${project.parent.basedir}</main.basedir>
         <sbt.project.name>assembly</sbt.project.name>
         <build.testJarPhase>none</build.testJarPhase>
         <build.copyDependenciesPhase>package</build.copyDependenciesPhase>
@@ -33,9 +31,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>edp.davinci</groupId>
-            <artifactId>davinci-server_0.3.1</artifactId>
-            <version>${project.version}</version>
+            <groupId>top.datawork</groupId>
+            <artifactId>datawork-fastbi-server</artifactId>
+            <version>2.0.1</version>
         </dependency>
     </dependencies>
 

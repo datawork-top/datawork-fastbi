@@ -26,7 +26,7 @@
     <modules>
         <module>datawork-fastbi-assembly</module>
         <module>datawork-fastbi-server</module>
-        <module>datawork-fastbi-web</module>
+        <module>datawork-fastbi-ui</module>
     </modules>
 
     <properties>
