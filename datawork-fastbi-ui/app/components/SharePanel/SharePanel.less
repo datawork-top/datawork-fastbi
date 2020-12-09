@@ -1,0 +1,39 @@
+@import "~assets/less/variable";
+.sharePanel {
+
+  .panelHead {
+    display: flex;
+    justify-content: center;
+  }
+
+  .panelContent {
+    padding: 16px 0 4px 0;
+
+    .footer {
+      margin-top: 16px;
+    }
+  }
+
+  :global {
+    .ant-form-item {
+      margin-bottom: 8px;
+    }
+  }
+}
+
+.generate {
+  margin-bottom: 8px;
+}
+
+.copy {
+  cursor: pointer;
+}
+
+.options {
+  .name,
+  .email {
+    margin-left: 4px;
+    font-size: 12px;
+    color: @light-text-color;
+  }
+}

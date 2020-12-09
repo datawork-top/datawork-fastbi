@@ -1,0 +1,72 @@
+@import "~assets/less/variable";
+
+.starWrapper{
+  margin-left: 4px;
+  display: inline-block;
+  vertical-align: bottom;
+  border: 1px solid @grey-line-color;
+  padding: 4px;
+  border-radius: 4px;
+  background-color: rgba(0,0,0, .3);
+  font-size: 0;
+  user-select: none;
+  .leftWrapper{
+    color: @white;
+    border-right: 1px solid @white;
+    margin-right: 8px;
+    padding-right: 8px;
+    font-size: 12px;
+    line-height: 12px;
+  }
+  .starCount{
+    color: @white;
+    font-size: 12px;
+    line-height: 12px;
+  }
+}
+
+.formWrapper {
+  padding: 16px;
+  text-align: left;
+  .header {
+    .title{
+      font-size: 16px;
+      color:@rich-text;
+      font-weight: 600;
+    }
+    .desc{
+      margin-top: 4px;
+      font-size: 14px;
+      color:@light-text-color;
+    }
+  }
+  .body {
+    margin: 16px auto;
+    display: flex;
+    flex-wrap: wrap;
+    .avatar {
+      margin: 0px 6px 6px 6px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      img {
+        vertical-align: top;
+      }
+      .title {
+        color: @rich-text;
+        font-size: 12px;
+        .ellipsis;
+      }
+    }
+    &:hover {
+      color: @blue;
+    }
+  }
+  .footer{
+    button {
+      margin-right: 6px;
+    }
+  }
+}
+
+

@@ -1,0 +1,26 @@
+@import '~assets/less/variable';
+
+:global {
+  .display {
+    &-layout {
+      overflow: hidden;
+
+      & > .ant-layout-content {
+        display: flex;
+        flex-direction: column;
+
+        & > div {
+          flex: 1;
+        }
+      }
+
+      &-content {
+        overflow: hidden;
+      }
+
+      &-sider {
+        overflow-y: auto;
+      }
+    }
+  }
+}

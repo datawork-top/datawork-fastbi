@@ -1,0 +1,230 @@
+/**
+ * COMMON WEBPACK CONFIGURATION
+ */
+
+const os = require('os')
+const path = require('path')
+const webpack = require('webpack')
+const HappyPack = require('happypack')
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
+const overrideLessVariables = require('../../app/assets/override/lessVariables')
+
+// Remove this line once the following warning goes away (it was meant for webpack loader authors not users):
+// 'DeprecationWarning: loaderUtils.parseQuery() received a non-string value which can be problematic,
+// see https://github.com/webpack/loader-utils/issues/56 parseQuery() will be replaced with getOptions()
+// in the next major version of loader-utils.'
+process.noDeprecation = true
+
+module.exports = options => ({
+  mode: options.mode,
+  entry: options.entry,
+  output: Object.assign(
+    {
+      // Compile into js/build.js
+      path: path.resolve(process.cwd(), 'build'),
+      publicPath: '/'
+    },
+    options.output
+  ), // Merge with env dependent settings
+  optimization: options.optimization,
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: 'happypack/loader?id=typescript'
+      },
+      {
+        test: /\.js$/, // Transform all .js files required somewhere with Babel
+        use: 'happypack/loader?id=js'
+      },
+      {
+        // Do not transform vendor's CSS with CSS-modules
+        // The point is that they remain in global scope.
+        // Since we require these CSS files in our JS or CSS files,
+        // they will be a part of our compilation either way.
+        // So, no need for ExtractTextPlugin here.
+        test: /\.css$/,
+        include: /node_modules|libs/,
+        use: 'happypack/loader?id=css'
+      },
+      {
+        test: /\.css$/,
+        include: [/app[\\\/]assets/],
+        use: 'happypack/loader?id=assets-css'
+      },
+      {
+        test: /\.less$/,
+        include: /node_modules/,
+        use: 'happypack/loader?id=less'
+      },
+      {
+        test: /\.less$/,
+        exclude: /node_modules/,
+        use: 'happypack/loader?id=assets-less'
+      },
+      {
+        test: /\.(eot|otf|ttf|woff|woff2)$/,
+        use: 'file-loader'
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-url-loader',
+            options: {
+              // Inline files smaller than 10 kB
+              limit: 10 * 1024,
+              noquotes: true
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(jpg|png|gif)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              // Inline files smaller than 10 kB
+              limit: 10 * 1024
+            }
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                enabled: false
+                // NOTE: mozjpeg is disabled as it causes errors in some Linux environments
+                // Try enabling it in your environment by switching the config to:
+                // enabled: true,
+                // progressive: true,
+              },
+              gifsicle: {
+                interlaced: false
+              },
+              optipng: {
+                optimizationLevel: 7
+              },
+              pngquant: {
+                quality: '65-90',
+                speed: 4
+              }
+            }
+          }
+        ]
+      },
+      {
+        test: /\.html$/,
+        use: 'html-loader'
+      },
+      {
+        test: /\.(mp4|webm)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 10000
+          }
+        }
+      }
+    ]
+  },
+  plugins: options.plugins.concat([
+    // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
+    // inside your code for any environment checks; UglifyJS will automatically
+    // drop any unreachable code.
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+      }
+    }),
+    new webpack.ContextReplacementPlugin(/^\.\/locale$/, (context) => {
+      if (!/\/moment\//.test(context.context)) return;
+
+      Object.assign(context, {
+          regExp: /^\.\/\w+/,
+          request: '../../locale', // resolved relatively
+      });
+    }),
+    new HappyPack({
+      id: 'typescript',
+      loaders: options.tsLoaders,
+      threadPool: happyThreadPool,
+      verbose: true
+    }),
+    new HappyPack({
+      id: 'js',
+      loaders: ['babel-loader'],
+      threadPool: happyThreadPool,
+      verbose: true
+    }),
+    new HappyPack({
+      id: 'css',
+      loaders: ['style-loader', 'css-loader'],
+      threadPool: happyThreadPool,
+      verbose: true
+    }),
+    new HappyPack({
+      id: 'assets-css',
+      loaders: ['style-loader', 'css-loader', 'postcss-loader'],
+      threadPool: happyThreadPool,
+      verbose: true
+    }),
+    new HappyPack({
+      id: 'less',
+      loaders: [
+        'style-loader',
+        'css-loader',
+        {
+          loader: 'less-loader',
+          options: {
+            sourceMap: true,
+            javascriptEnabled: true,
+            modifyVars: overrideLessVariables
+          }
+        }
+      ],
+      threadPool: happyThreadPool,
+      verbose: true
+    }),
+    new HappyPack({
+      id: 'assets-less',
+      loaders: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            modules: true,
+            importLoaders: 1
+          }
+        },
+        'postcss-loader',
+        {
+          loader: 'less-loader',
+          options: {
+            sourceMap: true,
+            javascriptEnabled: true
+          }
+        }
+      ],
+      threadPool: happyThreadPool,
+      verbose: true
+    }),
+  ]),
+  resolve: {
+    modules: ['node_modules', 'app'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.react.js'],
+    mainFields: ['browser', 'jsnext:main', 'main'],
+    alias: {
+      'react-resizable': path.resolve(process.cwd(), 'libs/react-resizable'),
+      app: path.resolve(process.cwd(), 'app'),
+      share: path.resolve(process.cwd(), 'share'),
+      libs: path.resolve(process.cwd(), 'libs'),
+      assets: path.resolve(process.cwd(), 'app/assets')
+      // fonts: path.resolve(process.cwd(), 'app/assets/fonts')
+    }
+  },
+  devtool: options.devtool,
+  target: 'web', // Make web variables accessible to webpack, e.g. window
+  performance: options.performance || {}
+})

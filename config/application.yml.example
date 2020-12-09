@@ -1,0 +1,211 @@
+#  <<
+#  Davinci
+#  ==
+#  Copyright (C) 2016 - 2019 EDP
+#  ==
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#        http://www.apache.org/licenses/LICENSE-2.0
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+#  >>
+
+
+server:
+  protocol: http
+  address: 127.0.0.1
+  port: 8080
+
+  servlet:
+    context-path: /
+
+  # Used for mail and download services, can be empty, careful configuration
+  # By default, 'server.address' and 'server.port' is used as the string value.
+  # access:
+  #  address:
+  #  port:
+
+
+## jwt is one of the important configuration of the application
+## jwt config cannot be null or empty
+jwtToken:
+  secret: secret
+  timeout: 1800000
+  algorithm: HS512
+
+
+## your datasource config
+source:
+  initial-size: 1
+  min-idle: 1
+  max-wait: 30000
+  max-active: 10
+  break-after-acquire-failure: false
+  connection-error-retry-attempts: 1
+  time-between-eviction-runs-millis: 2000
+  min-evictable-idle-time-millis: 600000
+  max-evictable-idle-time-millis: 900000
+  time-between-connect-error-millis: 60000
+  test-while-idle: true
+  test-on-borrow: false
+  test-on-return: false
+  validation-query: select 1
+  validation-query-timeout: 10
+  keep-alive: false
+  filters: stat
+
+  enable-query-log: false
+  result-limit: 1000000
+
+
+spring:
+  mvc:
+    async:
+      request-timeout: 30s
+  rest:
+    proxy-host:
+    proxy-port:
+    proxy-ignore:
+
+
+  ## davinci datasource config
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/davinci0.3?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    initial-size: 1
+    min-idle: 1
+    max-wait: 30000
+    max-active: 10
+    break-after-acquire-failure: false
+    connection-error-retry-attempts: 1
+    time-between-eviction-runs-millis: 2000
+    min-evictable-idle-time-millis: 600000
+    max-evictable-idle-time-millis: 900000
+    time-between-connect-error-millis: 60000
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+    validation-query: select 1
+    validation-query-timeout: 10
+    keep-alive: false
+    filters: stat
+
+  ## redis config
+  ## please choose either of the two ways
+  redis:
+    isEnable: false
+
+  ## standalone config
+    host: 127.0.0.1
+    port: 6379
+
+  ## cluster config
+  #  cluster:
+  #       nodes:
+
+    password:
+    database: 0
+    timeout: 1000
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: 1
+        max-idle: 8
+        min-idle: 0
+
+  ## mail is one of the important configuration of the application
+  ## mail config cannot be null or empty
+  ## some mailboxes need to be set separately password for the SMTP service)
+  mail:
+    host:
+    port:
+    username:
+    fromAddress:
+    password:
+    nickname:
+
+    properties:
+      smtp:
+        starttls:
+          enable: true
+          required: true
+        auth: true
+      mail:
+        smtp:
+          ssl:
+            enable: false
+
+  ldap:
+    urls:
+    username:
+    password:
+    base:
+    domainName:    # domainName 指 企业邮箱后缀，如企业邮箱为：xxx@example.com，这里值为 '@example.com'
+
+  security:
+    oauth2:
+      enable: false
+#      client:
+#        registration:
+#          cas:
+#            provider: cas
+#            client-id: "xxxxx"
+#            client-name: "Sign in with XXX"
+#            client-secret: "xxxxx"
+#            authorization-grant-type: authorization_code
+#            client-authentication-method: post
+#            redirect-uri-template: "{baseUrl}/login/oauth2/code/{registrationId}"
+#            scope: userinfo
+#        provider:
+#          cas:
+#            authorization-uri: https://cas.xxxxx.cn/cas/oauth2.0/authorize
+#            token-uri: https://cas.xxxxx.cn/cas/oauth2.0/accessToken
+#            user-info-uri: https://cas.xxxxx.cn/cas/oauth2.0/profile
+#            user-name-attribute: id
+#            userMapping:
+#              email: "attributes.Email"
+#              name: "attributes.CnName1"
+#              avatar: "attributes.Avatar"
+
+screenshot:
+  default_browser: CHROME
+  timeout_second: 600
+  chromedriver_path: $your_chromedriver_path$
+  remote_webdriver_url: $your_remote_webdriver_url$
+
+data-auth-center:
+  channels:
+    - name:
+      base-url:
+      auth-code:
+
+statistic:
+  enable: false
+
+  # You can use external elasticsearch storage [127.0.0.1:9300]
+  elastic_urls:
+  elastic_user:
+  elastic_index_prefix:
+
+  # You can also use external mysql storage
+  mysql_url:
+  mysql_username:
+  mysql_password:
+
+  # You can also use external kafka
+  kafka.bootstrap.servers:
+  kafka.topic:
+  java.security.krb5.conf:
+  java.security.keytab:
+  java.security.principal:
+
+encryption:
+  maxEncryptSize: 1024
+  type: Off # Off is to turn off encryption, to enable encryption, please select AES or RSA
