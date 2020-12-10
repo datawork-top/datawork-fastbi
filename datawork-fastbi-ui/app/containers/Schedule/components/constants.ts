@@ -47,7 +47,7 @@ export const DefaultSchedulePeriodExpression: {
 export const DefaultMailImageWidth = 1920
 
 export const DefaultEmailContent = getDefaultContent(
-  'This email comes from cron job on the Davinci.'
+  'This email comes from cron job on the Datawork.top FastBI.'
 )
 
 export const FormItemStyle: Partial<FormItemProps> = {

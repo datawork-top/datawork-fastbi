@@ -19,9 +19,9 @@
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="edp.davinci.dao.UserMapper">
+<mapper namespace="top.datawork.fastbi.dao.UserMapper">
 
-    <insert id="insert" parameterType="edp.davinci.model.User">
+    <insert id="insert" parameterType="top.datawork.fastbi.model.User">
         <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
@@ -72,7 +72,7 @@
     </insert>
 
 
-    <select id="getUsersByKeyword" resultType="edp.davinci.dto.userDto.UserBaseInfo">
+    <select id="getUsersByKeyword" resultType="top.datawork.fastbi.dto.userDto.UserBaseInfo">
         select DISTINCT u.id, IF(u.`name` is NULL,u.`username`,u.`name`) as username, u.`email`, u.`avatar`
         from `user` u
         LEFT JOIN rel_user_organization r on r.user_id = u.id
@@ -85,7 +85,7 @@
         or LOWER(`email`) like CONCAT(CONCAT('%', LOWER(#{keyword})), '%')
     </select>
 
-    <select id="getByIds" resultType="edp.davinci.model.User">
+    <select id="getByIds" resultType="top.datawork.fastbi.model.User">
         select * from `user` where
         <if test="userIds != null and userIds.size > 0">
             id in
@@ -98,7 +98,7 @@
         </if>
     </select>
 
-    <select id="selectByEmails" resultType="edp.davinci.model.User">
+    <select id="selectByEmails" resultType="top.datawork.fastbi.model.User">
         select * from `user` where
         <if test="emails != null and emails.size > 0">
             `email` in

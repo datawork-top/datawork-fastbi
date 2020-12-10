@@ -19,7 +19,7 @@
  */
 
 module.exports = {
-  'primary-color': '#1B98E0',
+  'primary-color': '#0099FE',
   'table-padding-vertical': '10px',
   'table-padding-horizontal': '8px',
   'page-header-padding-vertical': '8px',

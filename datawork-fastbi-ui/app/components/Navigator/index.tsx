@@ -40,8 +40,8 @@ import { IDownloadRecord } from 'app/containers/App/types'
 
 const styles = require('./Navigator.less')
 
-const goGithub = () => window.open('https://github.com/edp963/davinci')
-const goDoc = () => window.open('https://edp963.github.io/davinci/')
+const goGithub = () => window.open('https://github.com/datawork-top/datawork-fastbi')
+const goDoc = () => window.open('datawork-top/datawork-fastbi')
 
 interface INavigatorProps {
   show: boolean
@@ -85,14 +85,14 @@ export function Navigator (props: INavigatorProps) {
       <div className={styles.logoPc}>
         <div className={styles.logo}>
           <Link to="/projects">
-            <img src={require('assets/images/logo.svg')} />
+            <img src={require('assets/images/logo.png')} />
           </Link>
         </div>
       </div>
       <div className={styles.logoMobile}>
         <div className={styles.logo}>
           <Link to="/projects">
-            <img src={require('assets/images/logo_mobile.svg')} />
+            <img src={require('assets/images/logo.png')} />
           </Link>
         </div>
       </div>

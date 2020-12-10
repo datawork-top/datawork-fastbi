@@ -23,7 +23,7 @@ module.exports = require('./webpack.base.babel')({
 
   // Utilize long-term caching by adding content hashes (not compilation hashes) to compiled assets
   output: {
-    path: path.resolve(process.cwd(), '../davinci-ui'),
+    path: path.resolve(process.cwd(), '../fastbi-ui'),
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].chunk.js'
   },

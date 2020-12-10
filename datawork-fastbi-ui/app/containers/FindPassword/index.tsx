@@ -66,7 +66,7 @@ const FindPassword: React.FC<FormComponentProps> = React.memo(() => {
         <div className={styles.logoPc}>
           <div className={styles.logo}>
             <Link to="/login">
-              <img src={require('assets/images/logo.svg')} />
+              <img src={require('assets/images/logo.png')} />
             </Link>
           </div>
         </div>

@@ -19,8 +19,8 @@
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="edp.davinci.dao.ViewMapper">
-    <insert id="insert" parameterType="edp.davinci.model.View">
+<mapper namespace="top.datawork.fastbi.dao.ViewMapper">
+    <insert id="insert" parameterType="top.datawork.fastbi.model.View">
         <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
@@ -91,7 +91,7 @@
         </foreach>
     </insert>
 
-    <select id="selectByWidgetIds" resultType="edp.davinci.model.View">
+    <select id="selectByWidgetIds" resultType="top.datawork.fastbi.model.View">
         select * from `view` where id in
         (
         select view_id from widget where
@@ -107,7 +107,7 @@
         );
     </select>
 
-    <select id="selectSimpleByWidgetIds" resultType="edp.davinci.dto.viewDto.SimpleView">
+    <select id="selectSimpleByWidgetIds" resultType="top.datawork.fastbi.dto.viewDto.SimpleView">
         select id, name, model, variable from `view` where id in
         (
         select view_id from widget where
@@ -144,13 +144,13 @@
     </sql>
 
     <select id="getViewWithProjectAndSourceByWidgetId"
-            resultType="edp.davinci.dto.viewDto.ViewWithProjectAndSource">
+            resultType="top.datawork.fastbi.dto.viewDto.ViewWithProjectAndSource">
         <include refid="selectViewWithProjectAndSourceBaseSql"></include>
         WHERE v.id = (select view_id from widget where id = #{widgetId})
     </select>
 
     <select id="getViewWithProjectAndSourceById"
-            resultType="edp.davinci.dto.viewDto.ViewWithProjectAndSource">
+            resultType="top.datawork.fastbi.dto.viewDto.ViewWithProjectAndSource">
         <include refid="selectViewWithProjectAndSourceBaseSql"></include>
         WHERE v.id = #{id}
     </select>

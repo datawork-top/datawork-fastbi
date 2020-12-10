@@ -75,9 +75,9 @@
         </fileSet>
         <fileSet>
             <directory>
-                ${project.parent.basedir}/davinci-ui
+                ${project.parent.basedir}/fastbi-ui
             </directory>
-            <outputDirectory>davinci-ui</outputDirectory>
+            <outputDirectory>fastbi-ui</outputDirectory>
         </fileSet>
 
     </fileSets>

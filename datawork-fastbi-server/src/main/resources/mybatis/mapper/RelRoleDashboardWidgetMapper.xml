@@ -18,7 +18,7 @@
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="edp.davinci.dao.RelRoleDashboardWidgetMapper" >
+<mapper namespace="top.datawork.fastbi.dao.RelRoleDashboardWidgetMapper" >
 
     <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
         replace into rel_role_dashboard_widget

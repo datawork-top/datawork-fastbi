@@ -19,9 +19,9 @@
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="edp.davinci.dao.MemDashboardWidgetMapper">
+<mapper namespace="top.datawork.fastbi.dao.MemDashboardWidgetMapper">
 
-    <insert id="insert" parameterType="edp.davinci.model.MemDashboardWidget">
+    <insert id="insert" parameterType="top.datawork.fastbi.model.MemDashboardWidget">
         <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>

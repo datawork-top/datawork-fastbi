@@ -15,14 +15,6 @@
         <version>2.3.4.RELEASE</version>
     </parent>
 
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
     <modules>
         <module>datawork-fastbi-assembly</module>
         <module>datawork-fastbi-server</module>
@@ -38,12 +30,10 @@
     </properties>
 
     <repositories>
-        <!--
         <repository>
             <id>alimaven</id>
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
         </repository>
-        -->
         <repository>
             <id>central</id>
             <name>Maven Repository</name>
@@ -162,8 +152,8 @@
                     <!-- config for license:update-file-header -->
                     <licenseName>apache_v2</licenseName>
                     <inceptionYear>2016</inceptionYear>
-                    <organizationName>EDP</organizationName>
-                    <projectName>Davinci</projectName>
+                    <organizationName>datawork</organizationName>
+                    <projectName>fastbi</projectName>
                     <roots>
                         <root>src/main/java</root>
                         <root>src/test/java</root>

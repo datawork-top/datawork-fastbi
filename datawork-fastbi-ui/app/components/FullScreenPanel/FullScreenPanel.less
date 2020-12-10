@@ -17,8 +17,8 @@
     flex-direction: column;
     flex-wrap: nowrap;
     .header {
-      height: 64px;
-      flex: 0 0 64px;
+      height: 45px;
+      flex: 0 0 45px;
       background-color: @body-background;
       box-shadow: @header-box-shadow;
       z-index: 3;
@@ -83,7 +83,7 @@
         &:after {
           .mixinPanelAfter(230px);
           position: absolute;
-        }   
+        }
       }
       .controlPanel {
         .mixinPanel(360px);
@@ -112,7 +112,7 @@
               cursor: pointer;
             }
           }
-        } 
+        }
         .controlBody {
           flex: 1;
           overflow-y: auto;
@@ -120,7 +120,7 @@
           &:global(form .ant-select) {
             width: 300px !important;
           }
-        } 
+        }
         .controlFooter {
           flex-shrink: 0;
           width: 100%;
@@ -133,7 +133,7 @@
               margin-left: 12px;
             }
           }
-        } 
+        }
         &:after {
           .mixinPanelAfter(360px);
           position: fixed;
@@ -147,7 +147,7 @@
         transform: translateX(100%);
         box-shadow: none;
       }
-     
+
       .chartWrapper{
         display: flex;
         flex-direction: column;

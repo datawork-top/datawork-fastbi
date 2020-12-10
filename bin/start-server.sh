@@ -19,16 +19,16 @@
 
 #start server
 
-if [ -z "$DAVINCI3_HOME" ]; then
-  echo "DAVINCI3_HOME not found"
-  echo "Please export DAVINCI3_HOME to your environment variable"
+if [ -z "$FASTBI_HOME" ]; then
+  echo "FASTBI_HOME not found"
+  echo "Please export FASTBI_HOME to your environment variable"
   exit
 fi
 
-cd $DAVINCI3_HOME
+cd $FASTBI_HOME
 Lib_dir=`ls | grep lib`
 if [ -z "$Lib_dir" ]; then
-  echo "Invalid DAVINCI3_HOME"
+  echo "Invalid FASTBI_HOME"
   exit
 fi
 
@@ -38,9 +38,9 @@ if [[ $Server -gt 0 ]]; then
   exit
 fi
 
-cd $DAVINCI3_HOME
+cd $FASTBI_HOME
 TODAY=`date "+%Y-%m-%d"`
-LOG_PATH=$DAVINCI3_HOME/logs/sys/davinci.$TODAY.log
+LOG_PATH=$FASTBI_HOME/logs/sys/davinci.$TODAY.log
 nohup java -Dfile.encoding=UTF-8 -cp $JAVA_HOME/lib/*:lib/* edp.DavinciServerApplication > $LOG_PATH  2>&1 &
 
 echo "=========================================="

@@ -55,7 +55,7 @@ export const Background: FC = () => {
       <Canvas />
       <img
         className={styles.logo}
-        src={require('assets/images/logo_light.svg')}
+        src={require('assets/images/logo.png')}
       />
       <Switch>
         <Route path="/login" component={Login} />

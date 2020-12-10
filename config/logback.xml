@@ -23,7 +23,7 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
-    <property name="APP_NAME" value="davinci"/>
+    <property name="APP_NAME" value="fastbi"/>
 
     <property name="SYS" value="sys"/>
     <property name="USER" value="user"/>
@@ -33,7 +33,7 @@
     <property name="OPT" value="opt"/>
     <property name="DOWNLOAD" value="download"/>
 
-    <property name="LOG_HOME_PATH" value="${DAVINCI3_HOME}/logs"/>
+    <property name="LOG_HOME_PATH" value="${FASTBI_HOME}/logs"/>
 
     <property name="SYS_LOG_PATTERN"
               value="${FILE_LOG_PATTERN:-%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>

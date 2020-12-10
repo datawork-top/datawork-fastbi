@@ -18,14 +18,14 @@
  * >>
  */
 
-export const CLIENT_VERSION = '0.3-rc'
+export const CLIENT_VERSION = '2.0.1'
 export const API_HOST = '/api/v3'
 export const SHARE_HOST = `${location.origin}/share.html`
 export const EXTERNAL_LOG_OUT_URL = '/login/oauth2/logout'
 
 const defaultEchartsTheme = require('assets/json/echartsThemes/default.project.json')
 export const DEFAULT_ECHARTS_THEME = defaultEchartsTheme.theme
-export const DEFAULT_PRIMARY_COLOR = '#1B98E0'
+export const DEFAULT_PRIMARY_COLOR = '#0099fe'
 export const DEFAULT_SECONDARY_COLOR = '#223151'
 
 export const GRID_BREAKPOINTS = { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }
@@ -291,7 +291,7 @@ export const SQL_TYPES = SQL_STRING_TYPES.concat(SQL_NUMBER_TYPES).concat(
 
 export type SqlTypes = typeof SQL_TYPES[number]
 
-export const DEFAULT_SPLITER = '@davinci@'
+export const DEFAULT_SPLITER = '@fastbi@'
 export const KEY_COLUMN = 'davinciUniqueId'
 
 export const DEFAULT_FONT_WEIGHT = 'normal'

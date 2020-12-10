@@ -1,6 +1,6 @@
 # Contributing
 
-非常感谢贡献 Davinci！在参与贡献之前，请仔细阅读以下指引。
+非常感谢贡献 FASTBI！在参与贡献之前，请仔细阅读以下指引。
 
 ## 贡献范畴
 
@@ -11,39 +11,39 @@
 在交流过程中，详细描述新功能（或重构）的细节、机制和使用场景，能够促使它更好更快地被实现。**如果计划实现一个重大的功能（或重构），请务必通过 Issue 或其他方式与核心开发团队进行沟通**，这样大家能以最效率的方式来推进它。包含 `#feature` 标签的打开的 Issue 都是需要被实现的新功能，包含 `#enhancement` 标签的打开的 Issue 都是需要改进重构的功能。
 
 ### Issue 答疑
-帮助回答 Issue 中的使用问题是为 Davinci 社区做贡献的一个非常有价值的方式；社区中总会有新用户不断进来，在帮助新用户的同时，也可以展现你的专业知识。
+帮助回答 Issue 中的使用问题是为 FASTBI 社区做贡献的一个非常有价值的方式；社区中总会有新用户不断进来，在帮助新用户的同时，也可以展现你的专业知识。
 
 ### 文档改进
-Davinci 用户手册文档在 docs/ 目录下，我们使用了 [jekyll](https://jekyllrb.com/) 作为 Davinci 的文档服务，可以编辑目录里的 Markdown 文件来对文档做改进。
+FASTBI 用户手册文档在 docs/ 目录下，我们使用了 [jekyll](https://jekyllrb.com/) 作为 FASTBI 的文档服务，可以编辑目录里的 Markdown 文件来对文档做改进。
 
 ### 国际化
-非常抱歉，Davinci 目前仅支持中文语言；但项目前端依赖包含 [react-intl](https://github.com/formatjs/react-intl)，代码结构上也支持国际化，欢迎对其他语言进行贡献。
+非常抱歉，FASTBI 目前仅支持中文语言；但项目前端依赖包含 [react-intl](https://github.com/formatjs/react-intl)，代码结构上也支持国际化，欢迎对其他语言进行贡献。
 
 ## 贡献流程
 
 ### 分支结构
-Davinci 源码可能会产生一些临时分支，但真正有明确意义的只有以下三个分支：
+FASTBI 源码可能会产生一些临时分支，但真正有明确意义的只有以下三个分支：
 
 - dev-0.3: 默认分支，主要开发分支，**需要注意，dev-0.3分支代码不保证可用性，请谨慎使用到生产**；
 - master: 最近一次稳定 release 的源码，偶尔会多几次 hotfix 提交；
 - dev-0.2: 0.2 版本源码，目前 0.2 版本已经停止更新，如有 0.2 版本使用者或是需要进行二次开发的用户可以参考此分支。
 
 ### 开发指引
-Davinci 前后端代码共用同一个代码库，但在开发上是分离的。在着手开发之前，请先将 Davinci 项目 fork 一份到自己的 Github Repositories 中， 开发时请基于自己 Github Repositories 中的 Davinci 代码库进行开发。
+FASTBI 前后端代码共用同一个代码库，但在开发上是分离的。在着手开发之前，请先将 FASTBI 项目 fork 一份到自己的 Github Repositories 中， 开发时请基于自己 Github Repositories 中的 FASTBI 代码库进行开发。
 
-如果你计划给 Davinci 贡献代码，我们建议克隆 dev-0.3 分支来开发，这样在向 Davinci 主项目提交 PR 时合并冲突的可能性会小很多。
+如果你计划给 FASTBI 贡献代码，我们建议克隆 dev-0.3 分支来开发，这样在向 FASTBI 主项目提交 PR 时合并冲突的可能性会小很多。
 ```bash
-git clone https://github.com/yourname/davinci.git
+git clone https://github.com/yourname/FASTBI.git
 ```
 
 如果你只是基于稳定功能做一些定制化满足使用需要，我们建议克隆 master 分支来开发。
 ```bash
-git clone https://github.com/yourname/davinci.git --branch master
+git clone https://github.com/yourname/FASTBI.git --branch master
 ```
 
 
 #### 前端
-前端源代码在 webapp/ 目录中；davinci-ui/ 目录为编译后的前端文件
+前端源代码在 webapp/ 目录中；fastbi-ui/ 目录为编译后的前端文件
 
 ##### 目录结构
 ```
@@ -82,7 +82,7 @@ npm run build
 ```
 
 #### 后端
-用户配置在项目根目录 /config/ 下，项目启动脚本和升级补丁脚本在项目根目录 /bin/ 下， 后端代码及核心配置在 server/ 目录下, 日志在项目根目录 /log/ 下。注意：此处所指项目根目录都指环境变量 DAVINCI3_HOME 所配置的目录，在使用 IDE 开发过程中也需要配置环境变量，如 Idea 关于环境变量加载的优先级：`Run/Debug Configurations` 中配置的 `Environment variables` —>  IDE缓存的系统环境变量。
+用户配置在项目根目录 /config/ 下，项目启动脚本和升级补丁脚本在项目根目录 /bin/ 下， 后端代码及核心配置在 server/ 目录下, 日志在项目根目录 /log/ 下。注意：此处所指项目根目录都指环境变量 FASTBI_HOME 所配置的目录，在使用 IDE 开发过程中也需要配置环境变量，如 Idea 关于环境变量加载的优先级：`Run/Debug Configurations` 中配置的 `Environment variables` —>  IDE缓存的系统环境变量。
 
 ##### 目录结构
 
@@ -94,7 +94,7 @@ npm run build
   	 ├── 001_beta5.sql        # 已发布补丁（命名规则：“序列_版本”）
   	 └── beta.sql             # 当期未发布补丁（固定名称）
   ├── build.sh
-  ├── davinci.sql           # 完整系统数据库脚本（包含所有补丁）
+  ├── FASTBI.sql           # 完整系统数据库脚本（包含所有补丁）
   ├── initdb.bat            # 针对 Windows 环境的初始化数据库批处理脚本
   ├── initdb.sh             # 针对 Linux、Mac 环境的初始化数据库 Shell 脚本
   ├── restart-server.sh     # 针对 Linux、Mac 环境的重启服务脚本
@@ -121,8 +121,8 @@ npm run build
   	  	 ├── java
   	  	 	└── edp
   	  	 	   ├── core                             # 核心配置及通用代码
-  	  	 	   ├── davinci                          # Davinci 业务代码 
-  	  	 	   ├── DavinciServerApplication         # 系统启动类
+  	  	 	   ├── FASTBI                          # FASTBI 业务代码 
+  	  	 	   ├── FASTBIServerApplication         # 系统启动类
   	  	 	   └── SwaggerConfiguration             # Swagger 配置类
   	  	 └── resources
   	  	 	├── generator
@@ -131,7 +131,7 @@ npm run build
   	  	 	├── application.yml                   # 系统核心配置文件
   	  	 	└── banner.txt
   	  └── test                                # 测试代码目录
-   └── pom.xml                              # Davinci Server maven 配置文件，继承自项目根目录pom.xml
+   └── pom.xml                              # FASTBI Server maven 配置文件，继承自项目根目录pom.xml
 ```
 
 日志目录
@@ -144,10 +144,10 @@ npm run build
 ``` 
 
 ##### 环境变量
-配置系统环境变量或 IDE 环境变量 DAVINCI3_HOME，推荐优先使用 IDE 环境变量。
+配置系统环境变量或 IDE 环境变量 FASTBI_HOME，推荐优先使用 IDE 环境变量。
 
 ##### 数据库
-1. 自行创建 Davinci 系统数据库；
+1. 自行创建 FASTBI 系统数据库；
 2. 修改 bin/initdb.sh 或 bin/initdb.bat 中的数据库相应信息并执行 或 直接在数据库客户端导入 bin/davinci.sql。
 
 ##### 配置文件
