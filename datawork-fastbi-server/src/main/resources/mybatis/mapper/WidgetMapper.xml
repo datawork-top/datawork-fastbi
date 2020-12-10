@@ -24,7 +24,7 @@
         <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
-        insert into widget
+        insert into fastbi_widget
         <trim prefix="(" suffix=")" suffixOverrides=",">
             `name`,
             <if test="description != null">
@@ -55,7 +55,7 @@
 
 
     <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
-        insert ignore into widget
+        insert ignore into fastbi_widget
         (`id`,`name`,`description`, view_id, `project_id`, `type`, `publish`,`config`)
         VALUES
         <foreach collection="list" item="record" index="index" separator=",">
@@ -73,7 +73,7 @@
     </insert>
 
     <update id="updateConfigBatch">
-        update widget set `config` =
+        update fastbi_widget set `config` =
         <foreach collection="list" item="record" index="index" separator=" " open="case id" close="end">
             when #{record.id} then #{record.config}
         </foreach>
@@ -85,7 +85,7 @@
 
 
     <select id="getByIds" resultType="top.datawork.fastbi.model.Widget" parameterType="java.util.Set">
-        select * from widget where
+        select * from fastbi_widget where
         <if test="list != null and list.size > 0">
             id in
             <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
@@ -99,7 +99,7 @@
 
 
     <select id="getIdSetByIds" resultType="java.lang.Long" parameterType="java.util.Set">
-        select id from widget where id in
+        select id from fastbi_widget where id in
         <foreach collection="set" index="index" item="item" open="(" close=")" separator=",">
             #{item}
         </foreach>

@@ -14,7 +14,7 @@
     id, uuid, name, path, status, create_time, last_download_time
   </sql>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="top.datawork.fastbi.model.ShareDownloadRecord" useGeneratedKeys="true" >
-    insert into share_download_record
+    insert into fastbi_share_download_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,

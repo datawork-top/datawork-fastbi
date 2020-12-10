@@ -24,7 +24,7 @@
         <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
-        insert into `view`
+        insert into fastbi_view
         <trim prefix="(" suffix=")" suffixOverrides=",">
             `name`,
             `project_id`,
@@ -73,7 +73,7 @@
 
 
     <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
-        insert into `view`
+        insert into fastbi_view
         (`id`,`name`,description, source_id, `project_id`, `sql`, `model`,`variable`,`config`)
         VALUES
         <foreach collection="list" item="record" index="index" separator=",">
@@ -92,9 +92,9 @@
     </insert>
 
     <select id="selectByWidgetIds" resultType="top.datawork.fastbi.model.View">
-        select * from `view` where id in
+        select * from fastbi_view where id in
         (
-        select view_id from widget where
+        select view_id from fastbi_widget where
         <if test="widgetIds != null and widgetIds.size > 0">
             id in
             <foreach collection="widgetIds" index="index" item="item" open="(" close=")" separator=",">
@@ -108,9 +108,9 @@
     </select>
 
     <select id="selectSimpleByWidgetIds" resultType="top.datawork.fastbi.dto.viewDto.SimpleView">
-        select id, name, model, variable from `view` where id in
+        select id, name, model, variable from fastbi_view where id in
         (
-        select view_id from widget where
+        select view_id from fastbi_widget where
         <if test="widgetIds != null and widgetIds.size > 0">
             id in
             <foreach collection="widgetIds" index="index" item="item" open="(" close=")" separator=",">
@@ -138,15 +138,15 @@
                s.`config`      'source.config',
                s.`project_id`  'source.projectId',
                s.`type`        'source.type'
-        FROM `view` v
-                 LEFT JOIN project p on p.id = v.project_id
-                 LEFT JOIN source s on s.id = v.source_id
+        FROM fastbi_view v
+                 LEFT JOIN fastbi_project p on p.id = v.project_id
+                 LEFT JOIN fastbi_source s on s.id = v.source_id
     </sql>
 
     <select id="getViewWithProjectAndSourceByWidgetId"
             resultType="top.datawork.fastbi.dto.viewDto.ViewWithProjectAndSource">
         <include refid="selectViewWithProjectAndSourceBaseSql"></include>
-        WHERE v.id = (select view_id from widget where id = #{widgetId})
+        WHERE v.id = (select view_id from fastbi_widget where id = #{widgetId})
     </select>
 
     <select id="getViewWithProjectAndSourceById"

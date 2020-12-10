@@ -25,7 +25,7 @@
         <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
-        insert into mem_dashboard_widget
+        insert into fastbi_mem_dashboard_widget
         <trim prefix="(" suffix=")" suffixOverrides=",">
             `alias`,
             `dashboard_id`,
@@ -60,7 +60,7 @@
 
 
     <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
-        insert into mem_dashboard_widget
+        insert into fastbi_mem_dashboard_widget
         (`alias`, `dashboard_id`,`widget_Id`,`x`,`y`,`width`,`height`,`frequency`,`polling`,`create_by`,`create_time`)
         VALUES
         <foreach collection="list" item="record" index="index" separator=",">
@@ -82,7 +82,7 @@
 
     <update id="updateBatch" parameterType="java.util.List">
         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
-            update mem_dashboard_widget
+            update fastbi_mem_dashboard_widget
             <set>
                 `alias` = #{item.alias,jdbcType=VARCHAR},
                 `dashboard_id` = #{item.dashboardId,jdbcType=BIGINT},

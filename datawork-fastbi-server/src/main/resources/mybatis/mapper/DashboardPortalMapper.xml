@@ -25,7 +25,7 @@
         <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
-        insert into dashboard_portal
+        insert into fastbi_dashboard_portal
         <trim prefix="(" suffix=")" suffixOverrides=",">
             `name`,
             `project_id`,

@@ -24,7 +24,7 @@
         <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
-        insert ignore into favorite
+        insert ignore into fastbi_favorite
         <trim prefix="(" suffix=")" suffixOverrides=",">
             `user_id`,
             `project_id`,
@@ -39,7 +39,7 @@
 
 
     <delete id="deleteBatch" parameterType="java.util.List">
-        DELETE FROM favorite WHERE `user_id` = #{userId}
+        DELETE FROM fastbi_favorite WHERE `user_id` = #{userId}
         <if test="list != null and list.size > 0">
             and `project_id` in
             <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">

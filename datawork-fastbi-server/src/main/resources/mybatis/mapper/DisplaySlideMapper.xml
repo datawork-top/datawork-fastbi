@@ -24,7 +24,7 @@
         <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
-        insert into display_slide
+        insert into fastbi_display_slide
         <trim prefix="(" suffix=")" suffixOverrides=",">
             `display_id`,
             `index`,
@@ -42,7 +42,7 @@
     </insert>
 
     <insert id="copySlide">
-        insert into display_slide
+        insert into fastbi_display_slide
         <trim prefix="(" suffix=")" suffixOverrides=",">
             `display_id`,
             `index`,
@@ -56,7 +56,7 @@
 
     <update id="updateBatch" parameterType="java.util.List">
         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
-            update display_slide
+            update fastbi_display_slide
             <set>
                 `display_id`=#{item.displayId,jdbcType=BIGINT},
                 `index`=#{item.index,jdbcType=INTEGER},
@@ -71,7 +71,7 @@
     </update>
 
     <select id="queryByDisplayIds" resultType="top.datawork.fastbi.model.DisplaySlide">
-        select `id`, `display_id`, `index` from display_slide
+        select `id`, `display_id`, `index` from fastbi_display_slide
         <if test="displayIds != null and displayIds.size > 0">
             where `display_id` in
             <foreach collection="displayIds" index="index" item="item" open="(" close=")" separator=",">

@@ -24,7 +24,7 @@
         <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
-        insert into star
+        insert into fastbi_star
         <trim prefix="(" suffix=")" suffixOverrides=",">
             `target`,
             `target_id`,

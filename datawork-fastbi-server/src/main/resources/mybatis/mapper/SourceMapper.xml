@@ -24,7 +24,7 @@
         <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
-        insert into source
+        insert into fastbi_source
         <trim prefix="(" suffix=")" suffixOverrides=",">
             `name`,
             <if test="description != null">
@@ -50,7 +50,7 @@
     </insert>
 
     <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
-        insert ignore into source
+        insert ignore into fastbi_source
         (`id`,`name`,description, `project_id`, `type`, `config`)
         VALUES
         <foreach collection="list" item="record" index="index" separator=",">
