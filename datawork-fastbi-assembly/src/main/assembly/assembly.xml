@@ -20,7 +20,7 @@
 
 
 <assembly>
-    <id>dist-rc</id>
+    <id>dist</id>
     <formats>
         <format>zip</format>
     </formats>
@@ -85,7 +85,7 @@
         </fileSet>
         <fileSet>
             <directory>
-                ${project.parent.basedir}/fastbi-ui
+                ${project.parent.basedir}/datawork-fastbi-ui/build
             </directory>
             <outputDirectory>fastbi-ui</outputDirectory>
         </fileSet>

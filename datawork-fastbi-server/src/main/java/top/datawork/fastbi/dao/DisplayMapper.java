@@ -1,6 +1,6 @@
 /*
  * <<
- *  Davinci
+ *  EDP
  *  ==
  *  Copyright (C) 2016 - 2019 EDP
  *  ==
@@ -34,19 +34,19 @@ public interface DisplayMapper {
 
     int insert(Display display);
 
-    @Delete({"delete from display where id = #{id}"})
+    @Delete({"delete from fastbi_display where id = #{id}"})
     int deleteById(@Param("id") Long id);
 
-    @Delete({"delete from display where project_id = #{projectId}"})
+    @Delete({"delete from fastbi_display where project_id = #{projectId}"})
     int deleteByProject(@Param("projectId") Long projectId);
 
 
-    @Select({"select * from display where id = #{id}"})
+    @Select({"select * from fastbi_display where id = #{id}"})
     Display getById(@Param("id") Long id);
 
 
     @Update({
-            "update display",
+            "update fastbi_display",
             "set `name` = #{name,jdbcType=VARCHAR},",
             "description = #{description,jdbcType=VARCHAR},",
             "project_id = #{projectId,jdbcType=BIGINT},",
@@ -57,7 +57,7 @@ public interface DisplayMapper {
             "update_time = #{updateTime,jdbcType=TIMESTAMP}",
             "where id = #{id,jdbcType=BIGINT}"
     })
-    int update(Display display);
+    int update(Display fastbi_display);
 
 
     @Select({
@@ -71,21 +71,22 @@ public interface DisplayMapper {
             "	p.user_id 'project.userId',",
             "	p.visibility 'p.visibility'",
             "FROM",
-            "	display d ",
-            "	LEFT JOIN project p on d.project_id = p.id",
+            "	fastbi_display d ",
+            "	LEFT JOIN fastbi_project p on d.project_id = p.id",
             "WHERE d.id = #{id}",
     })
     DisplayWithProject getDisplayWithProjectById(@Param("id") Long id);
 
-    @Select({"select * from display where project_id = #{projectId}"})
+    @Select({"select * from fastbi_display where project_id = #{projectId}"})
     List<Display> getByProject(@Param("projectId") Long projectId);
 
-    @Select({"select id from display where project_id = #{projectId} and `name` = #{name}"})
+    @Select({"select id from fastbi_display where project_id = #{projectId} and `name` = #{name}"})
     Long getByNameWithProjectId(@Param("name") String name, @Param("projectId") Long projectId);
 
     @Select({
             "SELECT max(REPLACE(`name`,'${name}','')) ",
-            "FROM display WHERE project_id = #{projectId} and `name` REGEXP CONCAT('${name}','[0-9]+')"
+            "FROM fastbi_display " +
+            "WHERE project_id = #{projectId} and `name` REGEXP CONCAT('${name}','[0-9]+')"
     })
     Integer selectMaxNameOrderByName(@Param("name") String name, @Param("projectId") Long projectId);
 }

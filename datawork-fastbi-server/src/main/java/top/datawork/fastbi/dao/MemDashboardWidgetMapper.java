@@ -1,6 +1,6 @@
 /*
  * <<
- *  Davinci
+ *  EDP
  *  ==
  *  Copyright (C) 2016 - 2019 EDP
  *  ==
@@ -32,18 +32,18 @@ import java.util.List;
 public interface MemDashboardWidgetMapper {
     int insert(MemDashboardWidget memDashboardWidget);
 
-    @Delete({"delete from mem_dashboard_widget where id = #{id}"})
+    @Delete({"delete from fastbi_mem_dashboard_widget where id = #{id}"})
     int deleteById(@Param("id") Long id);
 
 
     @Select({
-            "select * from mem_dashboard_widget where id = #{id}"
+            "select * from fastbi_mem_dashboard_widget where id = #{id}"
     })
     MemDashboardWidget getById(@Param("id") Long id);
 
 
     @Update({
-            "update mem_dashboard_widget",
+            "update fastbi_mem_dashboard_widget",
             "set alias = #{alias,jdbcType=VARCHAR},",
             "dashboard_id = #{dashboardId,jdbcType=BIGINT},",
             "widget_Id = #{widgetId,jdbcType=BIGINT},",
@@ -58,12 +58,13 @@ public interface MemDashboardWidgetMapper {
     })
     int update(MemDashboardWidget memDashboardWidget);
 
-    @Select({"select * from mem_dashboard_widget where dashboard_id = #{dashboardId} order by create_time"})
+    @Select({"select * from fastbi_mem_dashboard_widget where dashboard_id = #{dashboardId} order by create_time"})
     List<MemDashboardWidget> getByDashboardId(@Param("dashboardId") Long dashboardId);
 
     @Delete({
-            "delete from mem_dashboard_widget where dashboard_id in ",
-            "(SELECT d.id FROM dashboard d LEFT JOIN dashboard_portal p on d.dashboard_portal_id = p.id where p.project_id = #{projectId})"
+            "delete from fastbi_mem_dashboard_widget where dashboard_id in ",
+            "(SELECT d.id FROM fastbi_dashboard d " +
+            "LEFT JOIN fastbi_dashboard_portal p on d.dashboard_portal_id = p.id where p.project_id = #{projectId})"
     })
     int deleteByProject(@Param("projectId") Long projectId);
 
@@ -71,17 +72,17 @@ public interface MemDashboardWidgetMapper {
 
     int updateBatch(List<MemDashboardWidget> list);
 
-    @Delete("delete from mem_dashboard_widget where widget_Id = #{widgetId}")
+    @Delete("delete from fastbi_mem_dashboard_widget where widget_Id = #{widgetId}")
     int deleteByWidget(@Param("widgetId") Long widgetId);
 
-    @Delete({"DELETE mdw FROM mem_dashboard_widget mdw WHERE mdw.dashboard_id IN " +
+    @Delete({"DELETE mdw FROM fastbi_mem_dashboard_widget mdw WHERE mdw.dashboard_id IN " +
             "( " +
             "SELECT d.id " +
-            "FROM dashboard d " +
+            "FROM fastbi_dashboard d " +
             "WHERE d.dashboard_portal_id = #{portalId} " +
             ") "})
     int deleteByPortalId(@Param("portalId") Long portalId);
 
-    @Delete("delete from mem_dashboard_widget where dashboard_id = #{dashboardId}")
+    @Delete("delete from fastbi_mem_dashboard_widget where dashboard_id = #{dashboardId}")
     int deleteByDashboardId(@Param("dashboardId") Long dashboardId);
 }

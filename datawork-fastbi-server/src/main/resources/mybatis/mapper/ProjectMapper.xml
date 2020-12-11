@@ -75,8 +75,8 @@
             from mem_dashboard_widget
             where dashboard_id in (
                 select d.id
-                from dashboard d
-                         inner join dashboard_portal dp on dp.id = d.dashboard_portal_id
+                from fastbi_dashboard d
+                         inner join  fastbi_dashboard_portal dp on dp.id = d.dashboard_portal_id
                 where dp.project_id = #{projectId}
             )
         );
@@ -86,8 +86,8 @@
         where role_id in (select id from role where org_id = #{orgId})
           and dashboard_id in (
             select d.id
-            from dashboard d
-                     inner join dashboard_portal dp on dp.id = d.dashboard_portal_id
+            from  fastbi_dashboard d
+            inner join  fastbi_dashboard_portal dp on dp.id = d.dashboard_portal_id
             where dp.project_id = #{projectId}
         );
 
@@ -95,15 +95,15 @@
         delete
         from rel_role_portal
         where role_id in (select id from role where org_id = #{orgId})
-          and portal_id in (select id from dashboard_portal where project_id = #{projectId});
+          and portal_id in (select id from  fastbi_dashboard_portal where project_id = #{projectId});
 
         delete
         from rel_role_display_slide_widget
         where role_id in (select id from role where org_id = #{orgId})
           and mem_display_slide_widget_id in (select m.id
                                               from mem_display_slide_widget m
-                                                       right join display_slide s on s.id = m.display_slide_id
-                                                       right join display d on d.id = s.display_id
+                                                       right join  fastbi_display_slide s on s.id = m.display_slide_id
+                                                       right join  fastbi_display d on d.id = s.display_id
                                               where d.project_id = #{projectId});
 
 
@@ -111,19 +111,20 @@
         from rel_role_slide
         where role_id in (select id from role where org_id = #{orgId})
           and slide_id in (select s.id
-                           from display_slide s
-                                    right join display d on d.id = s.display_id and d.project_id = #{projectId});
+                           from fastbi_display_slide s
+         right join fastbi_display d
+                    on d.id = s.display_id and d.project_id = #{projectId});
 
         delete
         from rel_role_display
         where role_id in (select id from role where org_id = #{orgId})
-          and display_id in (select id from display where project_id = #{projectId});
+          and display_id in (select id from fastbi_display where project_id = #{projectId});
 
 
         delete
         from rel_role_view
         where role_id in (select id from role where org_id = #{orgId})
-          and view_id in (select id from view where project_id = #{projectId});
+          and view_id in (select id from fastbi_view where project_id = #{projectId});
 
         delete
         from rel_project_admin
@@ -141,7 +142,7 @@
         u.`avatar` as 'createBy.avatar'
         from fastbi_project p
         left join `user` u on u.`id` = p.`user_id`
-        left join star s on (s.target_id = p.id and s.`target` = 'project' and s.user_id = #{userId})
+        left join fastbi_star s on (s.target_id = p.id and s.`target` = 'project' and s.user_id = #{userId})
         where p.id in (
         <!-- 当前用户是project的创建者或管理员 -->
         select DISTINCT p.id
@@ -217,7 +218,7 @@
     <select id="getFavoriteProjects" resultType="top.datawork.fastbi.dto.projectDto.ProjectWithCreateBy">
         select t.* from (
         <include refid="selectProjectByUserBaseSql"></include>
-        ) t LEFT JOIN favorite f on t.id = f.project_id
+        ) t LEFT JOIN fastbi_favorite f on t.id = f.project_id
         where f.user_id = #{userId}
         order by t.id
     </select>

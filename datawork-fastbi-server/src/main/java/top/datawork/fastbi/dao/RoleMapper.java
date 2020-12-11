@@ -1,6 +1,6 @@
 /*
  * <<
- *  Davinci
+ *  EDP
  *  ==
  *  Copyright (C) 2016 - 2019 EDP
  *  ==
@@ -80,8 +80,9 @@ public interface RoleMapper {
 
 
     @Select({
-            "SELECT DISTINCT r.id FROM role r INNER JOIN rel_role_project rrp on rrp.role_id = r.id",
-            "INNER JOIN dashboard_portal p on p.project_id = rrp.project_id",
+            "SELECT DISTINCT r.id FROM role r " +
+            "INNER JOIN rel_role_project rrp on rrp.role_id = r.id",
+            "INNER JOIN fastbi_dashboard_portal p on p.project_id = rrp.project_id",
             "INNER JOIN rel_role_user rru on rru.role_id = r.id",
             "WHERE p.id = #{portalId} and rru.user_id = #{userId}"
     })
@@ -89,8 +90,9 @@ public interface RoleMapper {
 
 
     @Select({
-            "SELECT DISTINCT r.id FROM role r INNER JOIN rel_role_project rrp on rrp.role_id = r.id",
-            "INNER JOIN display d on d.project_id = rrp.project_id ",
+            "SELECT DISTINCT r.id FROM role r " +
+            "INNER JOIN rel_role_project rrp on rrp.role_id = r.id",
+            "INNER JOIN fastbi_display d on d.project_id = rrp.project_id ",
             "INNER JOIN rel_role_user rru on rru.role_id = r.id",
             "WHERE d.id = #{displayId} and rru.user_id = #{userId}"
     })

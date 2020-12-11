@@ -1,6 +1,6 @@
 /*
  * <<
- *  Davinci
+ *  EDP
  *  ==
  *  Copyright (C) 2016 - 2019 EDP
  *  ==
@@ -38,7 +38,7 @@ public interface RelRolePortalMapper {
             "select rru.role_id as roleId, rrp.portal_id as vizId",
             "from rel_role_portal rrp",
             "       inner join rel_role_user rru on rru.role_id = rrp.role_id",
-            "       inner join dashboard_portal p on p.id = rrp.portal_id",
+            "       inner join fastbi_dashboard_portal p on p.id = rrp.portal_id",
             "where rru.user_id = #{userId} and rrp.visible = 0 and p.project_id = #{projectId}"
     })
     List<RoleDisableViz> getDisablePortalByUser(@Param("userId") Long userId, @Param("projectId") Long projectId);
@@ -52,7 +52,7 @@ public interface RelRolePortalMapper {
     @Select({
             "select rrp.portal_id",
             "from rel_role_portal rrp",
-            "inner join dashboard_portal p on p.id = rrp.portal_id",
+            "inner join fastbi_dashboard_portal p on p.id = rrp.portal_id",
             "where rrp.role_id = #{id} and rrp.visible = 0 and p.project_id = #{projectId}"
     })
     List<Long> getExcludePortals(@Param("id") Long id, @Param("projectId") Long projectId);
@@ -63,9 +63,9 @@ public interface RelRolePortalMapper {
     @Delete({"delete from rel_role_portal where role_id = #{roleId}"})
     int deleteByRoleId(Long roleId);
 
-    @Delete({"delete from rel_role_portal where portal_id in (select id from dashboard_portal where project_id = #{projectId})"})
+    @Delete({"delete from rel_role_portal where portal_id in (select id from fastbi_dashboard_portal where project_id = #{projectId})"})
     int deleteByProject(Long projectId);
 
-    @Delete({"delete from rel_role_portal where role_id = #{roleId} and portal_id in (select id from dashboard_portal where project_id = #{projectId})"})
+    @Delete({"delete from rel_role_portal where role_id = #{roleId} and portal_id in (select id from fastbi_dashboard_portal where project_id = #{projectId})"})
     int deleteByRoleAndProject(Long roleId, Long projectId);
 }

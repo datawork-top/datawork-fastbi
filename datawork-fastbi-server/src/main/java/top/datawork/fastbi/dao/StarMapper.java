@@ -1,6 +1,6 @@
 /*
  * <<
- *  Davinci
+ *  EDP
  *  ==
  *  Copyright (C) 2016 - 2019 EDP
  *  ==
@@ -35,34 +35,39 @@ public interface StarMapper {
     int insert(Star star);
 
     @Delete({
-            "delete from star",
+            "delete from fastbi_star",
             "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteById(Long id);
 
     @Delete({
-            "delete from star",
+            "delete from fastbi_star",
             "where target = #{target} and  target_id = #{targetId} and user_id = #{userId}"
     })
     int delete(@Param("userId") Long userId, @Param("targetId") Long targetId, @Param("target") String target);
 
 
     @Select({
-            "select * from star",
+            "select * from fastbi_star",
             "where target = #{target} and target_id = #{targetId} and user_id = #{userId}"
     })
     Star select(@Param("userId") Long userId, @Param("targetId") Long targetId, @Param("target") String target);
 
 
     @Select({
-            "select p.*, u.id as 'createBy.id', IF(u.`name` is NULL,u.username,u.`name`) as 'createBy.username', u.avatar as 'createBy.avatar'  from project p left join user u on u.id = p.user_id ",
-            "where p.id in (select target_id from star where target = #{target} and user_id = #{userId})"
+            "select p.*, u.id as 'createBy.id', IF(u.`name` is NULL,u.username,u.`name`) as 'createBy.username'," +
+                    " u.avatar as 'createBy.avatar'  " +
+                    " from fastbi_project p " +
+                    "left join user u on u.id = p.user_id ",
+            "where p.id in (select target_id from fastbi_star where target = #{target} and user_id = #{userId})"
     })
     List<ProjectWithCreateBy> getStarProjectListByUser(@Param("userId") Long userId, @Param("target") String target);
 
 
     @Select({
-            "select u.id, IF(u.`name` is NULL,u.username,u.`name`) as username, u.email, u.avatar, s.star_time from star s left join user u on u.id = s.user_id",
+            "select u.id, IF(u.`name` is NULL,u.username,u.`name`) as username, u.email, u.avatar, " +
+                    "s.star_time from fastbi_star s " +
+                    "left join user u on u.id = s.user_id",
             "where s.target = #{target} and s.target_id = #{targetId}"
     })
     List<StarUser> getStarUserListByTarget(@Param("targetId") Long targetId, @Param("target") String target);

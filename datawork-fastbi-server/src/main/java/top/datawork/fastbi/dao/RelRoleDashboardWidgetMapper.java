@@ -1,6 +1,6 @@
 /*
  * <<
- *  Davinci
+ *  EDP
  *  ==
  *  Copyright (C) 2016 - 2019 EDP
  *  ==
@@ -41,8 +41,8 @@ public interface RelRoleDashboardWidgetMapper {
     @Delete({"DELETE rrdw FROM rel_role_dashboard_widget rrdw WHERE rrdw.mem_dashboard_widget_id IN " +
             "( " +
             "SELECT mdw.id " +
-            "FROM mem_dashboard_widget mdw\n" +
-            "INNER JOIN dashboard d ON d.id = mdw.dashboard_id " +
+            "FROM fastbi_mem_dashboard_widget mdw\n" +
+            "INNER JOIN fastbi_dashboard d ON d.id = mdw.dashboard_id " +
             "WHERE d.dashboard_portal_id = #{portalId} " +
             ") "})
     int deleteByPortalId(@Param("portalId") Long portalId);
@@ -50,7 +50,7 @@ public interface RelRoleDashboardWidgetMapper {
     @Delete({"DELETE rrdw FROM rel_role_dashboard_widget rrdw WHERE rrdw.mem_dashboard_widget_id IN " +
             "( " +
             "SELECT mdw.id " +
-            "FROM mem_dashboard_widget mdw " +
+            "FROM fastbi_mem_dashboard_widget mdw " +
             "WHERE mdw.dashboard_id = #{dashboardId} " +
             ") "})
     int deleteByDashboardId(@Param("dashboardId") Long dashboardId);
@@ -66,9 +66,9 @@ public interface RelRoleDashboardWidgetMapper {
     @Delete({"DELETE rrdw FROM rel_role_dashboard_widget rrdw WHERE rrdw.mem_dashboard_widget_id IN " +
             "( " +
             "SELECT mdw.id " +
-            "FROM mem_dashboard_widget mdw " +
-            "INNER JOIN dashboard d ON d.id = mdw.dashboard_id " +
-            "INNER JOIN dashboard_portal dp ON dp.id = d.dashboard_portal_id " +
+            "FROM fastbi_mem_dashboard_widget mdw " +
+            "INNER JOIN fastbi_dashboard d ON d.id = mdw.dashboard_id " +
+            "INNER JOIN fastbi_dashboard_portal dp ON dp.id = d.dashboard_portal_id " +
             "WHERE dp.project_id = #{projectId} " +
             ") "})
     int deleteByProject(@Param("projectId") Long projectId);
@@ -76,9 +76,9 @@ public interface RelRoleDashboardWidgetMapper {
     @Delete({"DELETE rrdw FROM rel_role_dashboard_widget rrdw WHERE rrdw.role_id = #{roleId} and rrdw.mem_dashboard_widget_id IN " +
             "( " +
             "SELECT mdw.id " +
-            "FROM mem_dashboard_widget mdw " +
-            "INNER JOIN dashboard d ON d.id = mdw.dashboard_id " +
-            "INNER JOIN dashboard_portal dp ON dp.id = d.dashboard_portal_id " +
+            "FROM fastbi_mem_dashboard_widget mdw " +
+            "INNER JOIN fastbi_dashboard d ON d.id = mdw.dashboard_id " +
+            "INNER JOIN fastbi_dashboard_portal dp ON dp.id = d.dashboard_portal_id " +
             "WHERE dp.project_id = #{projectId} " +
             ") "})
     int deleteByRoleAndProject(Long roleId, Long projectId);

@@ -1,6 +1,6 @@
 /*
  * <<
- *  Davinci
+ *  EDP
  *  ==
  *  Copyright (C) 2016 - 2019 EDP
  *  ==
@@ -38,7 +38,7 @@ public interface RelRoleDashboardMapper {
             "select rru.role_id as roleId, rrd.dashboard_id as vizId",
             "from rel_role_dashboard rrd",
             "   inner join rel_role_user rru on rru.role_id = rrd.role_id",
-            "   inner join dashboard d on d.id  = rrd.dashboard_id",
+            "   inner join fastbi_dashboard d on d.id  = rrd.dashboard_id",
             "where rru.user_id = #{userId} and rrd.visible = 0 and d.dashboard_portal_id = #{portalId}"
     })
     List<RoleDisableViz> getDisableByUser(@Param("userId") Long userId, @Param("portalId") Long portalId);
@@ -50,15 +50,15 @@ public interface RelRoleDashboardMapper {
     int deleteByDashboardIds(@Param("dashboardIds") Set<Long> dashboardIds);
 
     @Delete({
-            "delete from rel_role_dashboard where dashboard_id in (select id from dashboard where id = #{id} or find_in_set(#{id}, full_parent_Id) > 0)"
+            "delete from rel_role_dashboard where dashboard_id in (select id from fastbi_dashboard where id = #{id} or find_in_set(#{id}, full_parent_Id) > 0)"
     })
     int deleteByDashboardId(Long id);
 
     @Select({
             "select rrd.dashboard_id",
             "from rel_role_dashboard rrd",
-            "inner join dashboard d on d.id = rrd.dashboard_id",
-            "INNER JOIN dashboard_portal p on p.id = d.dashboard_portal_id",
+            "inner join fastbi_dashboard d on d.id = rrd.dashboard_id",
+            "INNER JOIN fastbi_dashboard_portal p on p.id = d.dashboard_portal_id",
             "where rrd.role_id = #{id} and rrd.visible = 0 and p.project_id = #{projectId}"
     })
     List<Long> getExcludeDashboards(@Param("id") Long id, @Param("projectId") Long projectId);
@@ -72,21 +72,23 @@ public interface RelRoleDashboardMapper {
     @Delete({"DELETE rrd FROM rel_role_dashboard rrd WHERE rrd.dashboard_id IN " +
             "( " +
             "SELECT d.id " +
-            "FROM dashboard d " +
+            "FROM fastbi_dashboard d " +
             "WHERE d.dashboard_portal_id = #{portalId} " +
             ") "})
     int deleteByPortalId(@Param("portalId") Long portalId);
 
     @Delete({
             "delete from rel_role_dashboard where dashboard_id in (",
-            "select d.id from dashboard d left join dashboard_portal p on p.id = d.dashboard_portal_id ",
+            "select d.id from fastbi_dashboard d " +
+            "left join fastbi_dashboard_portal p on p.id = d.dashboard_portal_id ",
             "where p.project_id = #{projectId})"
     })
     int deleteByProject(Long projectId);
 
     @Delete({
         "delete from rel_role_dashboard where role_id = #{roleId} and dashboard_id in (",
-        "select d.id from dashboard d left join dashboard_portal p on p.id = d.dashboard_portal_id ",
+        "select d.id from fastbi_dashboard d " +
+        "left join fastbi_dashboard_portal p on p.id = d.dashboard_portal_id ",
         "where p.project_id = #{projectId})"
     })
     int deleteByRoleAndProject(Long roleId, Long projectId);

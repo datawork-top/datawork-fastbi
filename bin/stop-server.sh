@@ -17,7 +17,7 @@
 #  >>
 
 
-Server=`ps -ef | grep java | grep edp.DavinciServerApplication | grep -v grep | awk '{print $2}'`
+Server=`ps -ef | grep java | grep top.datawork.FastBIServerApplication | grep -v grep | awk '{print $2}'`
 if [[ $Server -gt 0 ]]; then
   kill -9 $Server
 else

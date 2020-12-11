@@ -1,6 +1,6 @@
 /*
  * <<
- *  Davinci
+ *  EDP
  *  ==
  *  Copyright (C) 2016 - 2019 EDP
  *  ==
@@ -41,7 +41,7 @@ public interface RelRoleSlideMapper {
             "select rru.role_id as roleId, rrs.slide_id as vizId",
             "from rel_role_slide rrs",
             "inner join rel_role_user rru on rru.role_id = rrs.role_id",
-            "inner join display_slide s on s.id = rrs.slide_id",
+            "inner join fastbi_display_slide s on s.id = rrs.slide_id",
             "where rru.user_id = #{userId} and rrs.visible = 0 and s.display_id = #{displayId}"
     })
     List<RoleDisableViz> getDisableSlides(@Param("userId") Long userId, @Param("displayId") Long displayId);
@@ -54,8 +54,8 @@ public interface RelRoleSlideMapper {
     @Select({
             "select rrs.slide_id",
             "from rel_role_slide rrs",
-            "inner join display_slide s on s.id = rrs.slide_id",
-            "INNER JOIN display d on d.id = s.display_id",
+            "inner join fastbi_display_slide s on s.id = rrs.slide_id",
+            "INNER JOIN fastbi_display d on d.id = s.display_id",
             "where rrs.role_id = #{id} and rrs.visible = 0 and d.project_id = #{projectId}"
     })
     List<Long> getExcludeSlides(@Param("id") Long id, @Param("projectId") Long projectId);
@@ -69,7 +69,7 @@ public interface RelRoleSlideMapper {
     @Delete({"DELETE rrs FROM rel_role_slide rrs WHERE rrs.slide_id IN " +
             "( " +
             "SELECT ds.id " +
-            "FROM display_slide ds " +
+            "FROM fastbi_display_slide ds " +
             "WHERE ds.display_id = #{displayId} " +
             ") "})
     int deleteByDisplayId(@Param("displayId") Long displayId);
@@ -78,16 +78,16 @@ public interface RelRoleSlideMapper {
 
     @Delete({
             "delete from rel_role_slide where slide_id in ",
-            "(select ds.id from display_slide ds ",
-            "left join display d on d.id = ds.display_id ",
+            "(select ds.id from fastbi_display_slide ds ",
+            "left join fastbi_display d on d.id = ds.display_id ",
             "where d.project_id = #{projectId})"
     })
     int deleteByProject(Long projectId);
     
     @Delete({
         "delete from rel_role_slide where role_id = #{roleId} and slide_id in ",
-        "(select ds.id from display_slide ds ",
-        "left join display d on d.id = ds.display_id ",
+        "(select ds.id from fastbi_display_slide ds ",
+        "left join fastbi_display d on d.id = ds.display_id ",
         "where d.project_id = #{projectId})"
     })
     int deleteByRoleAndProject(Long roleId, Long projectId);

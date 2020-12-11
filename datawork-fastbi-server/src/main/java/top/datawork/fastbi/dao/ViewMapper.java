@@ -1,6 +1,6 @@
 /*
  * <<
- *  Davinci
+ *  EDP
  *  ==
  *  Copyright (C) 2016 - 2019 EDP
  *  ==
@@ -35,24 +35,24 @@ public interface ViewMapper {
 
     int insert(View view);
 
-    @Select({"select id from `view` where project_id = #{projectId} and `name` = #{name}"})
+    @Select({"select id from fastbi_view where project_id = #{projectId} and `name` = #{name}"})
     Long getByNameWithProjectId(@Param("name") String name, @Param("projectId") Long projectId);
 
     ViewWithProjectAndSource getViewWithProjectAndSourceById(@Param("id") Long id);
 
     ViewWithProjectAndSource getViewWithProjectAndSourceByWidgetId(@Param("widgetId") Long widgetId);
 
-    @Delete({"delete from `view` where id = #{id}"})
+    @Delete({"delete from fastbi_view where id = #{id}"})
     int deleteById(Long id);
 
-    @Select({"select * from `view` where id = #{id}"})
+    @Select({"select * from fastbi_view where id = #{id}"})
     View getById(Long id);
 
-    @Select({"select id, name, model, variable from `view` where id = #{id}"})
+    @Select({"select id, name, model, variable from fastbi_view where id = #{id}"})
     SimpleView getSimpleViewById(Long id);
 
     @Update({
-            "update `view`",
+            "update fastbi_view",
             "set `name` = #{name,jdbcType=VARCHAR},",
             "`description` = #{description,jdbcType=VARCHAR},",
             "`project_id` = #{projectId,jdbcType=BIGINT},",
@@ -67,28 +67,28 @@ public interface ViewMapper {
     })
     int update(View view);
 
-    @Select({"select * from `view` where source_id = #{sourceId}"})
+    @Select({"select * from fastbi_view where source_id = #{sourceId}"})
     List<View> getBySourceId(@Param("sourceId") Long sourceId);
 
     @Select({
             "select v.*,",
-            "s.id as 'source.id', s.`name` as 'source.name' from `view` v ",
-            "left join source s on s.id = v.source_id ",
+            "s.id as 'source.id', s.`name` as 'source.name' from fastbi_view v ",
+            "left join fastbi_source s on s.id = v.source_id ",
             "where v.id = #{id}"
     })
     ViewWithSourceBaseInfo getViewWithSourceBaseInfo(@Param("id") Long id);
 
     @Select({
             "select v.id, v.`name`, v.`description`, s.name as 'sourceName'",
-            "from `view` v ",
-            "left join source s on s.id = v.source_id ",
+            "from fastbi_view v ",
+            "left join fastbi_source s on s.id = v.source_id ",
             "where v.project_id = #{projectId}"
     })
     List<ViewBaseInfo> getViewBaseInfoByProject(@Param("projectId") Long projectId);
 
     int insertBatch(@Param("list") List<View> sourceList);
 
-    @Delete({"delete from `view` where project_id = #{projectId}"})
+    @Delete({"delete from fastbi_view where project_id = #{projectId}"})
     int deleteByProject(@Param("projectId") Long projectId);
 
     @Select({
@@ -100,9 +100,9 @@ public interface ViewMapper {
             "	s.`config` 'source.config',",
             "	s.`project_id` 'source.projectId',",
             "	s.`type` 'source.type'",
-            "FROM `view` v",
-            "	LEFT JOIN project p on p.id = v.project_id",
-            "	LEFT JOIN source s on s.id = v.source_id",
+            "FROM fastbi_view v",
+            "	LEFT JOIN fastbi_project p on p.id = v.project_id",
+            "	LEFT JOIN fastbi_source s on s.id = v.source_id",
             "WHERE v.id = #{id}"
     })
     ViewWithSource getViewWithSource(Long id);

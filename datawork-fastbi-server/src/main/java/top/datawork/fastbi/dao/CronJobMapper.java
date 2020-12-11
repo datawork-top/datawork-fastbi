@@ -1,6 +1,6 @@
 /*
  * <<
- *  Davinci
+ *  EDP
  *  ==
  *  Copyright (C) 2016 - 2019 EDP
  *  ==
@@ -33,19 +33,19 @@ public interface CronJobMapper {
 
     int insert(CronJob cronJob);
 
-    @Delete({"delete from cron_job where id = #{id,jdbcType=BIGINT}"})
+    @Delete({"delete from fastbi_cron_job where id = #{id,jdbcType=BIGINT}"})
     int deleteById(@Param("id") Long id);
 
 
-    @Select({"select * from cron_job where id = #{id}"})
+    @Select({"select * from fastbi_cron_job where id = #{id}"})
     CronJob getById(@Param("id") Long id);
 
 
-    @Select({"select * from cron_job where  job_status in ('stopped','failed') and update_time > (NOW() - INTERVAL 3 MINUTE)"})
+    @Select({"select * from fastbi_cron_job where  job_status in ('stopped','failed') and update_time > (NOW() - INTERVAL 3 MINUTE)"})
     List<CronJob> getStoppedJob();
 
     @Update({
-            "update cron_job",
+            "update fastbi_cron_job",
             "set `name` = #{name,jdbcType=VARCHAR},",
             "`project_id` = #{projectId,jdbcType=BIGINT},",
             "`job_type` = #{jobType,jdbcType=VARCHAR},",
@@ -63,22 +63,22 @@ public interface CronJobMapper {
     int update(CronJob record);
 
     @Update({
-            "update cron_job",
+            "update fastbi_cron_job",
             "set `exec_log` = #{execLog,jdbcType=LONGVARCHAR}",
             "where `id` = #{id,jdbcType=BIGINT}"
     })
     int updateExecLog(@Param("id") Long id, @Param("execLog") String execLog);
 
 
-    @Select({"select id from cron_job where project_id = #{projectId} and `name` = #{name}"})
+    @Select({"select id from fastbi_cron_job where project_id = #{projectId} and `name` = #{name}"})
     Long getByNameWithProjectId(@Param("name") String name, @Param("projectId") Long projectId);
 
-    @Select({"select * from cron_job where project_id = #{projectId}"})
+    @Select({"select * from fastbi_cron_job where project_id = #{projectId}"})
     List<CronJob> getByProject(@Param("projectId") Long projectId);
 
-    @Select({"select * from cron_job where job_status = 'started'"})
+    @Select({"select * from fastbi_cron_job where job_status = 'started'"})
     List<CronJob> getStartedJobs();
 
-    @Delete({"delete from `cron_job` where project_id = #{projectId}"})
+    @Delete({"delete from `fastbi_cron_job` where project_id = #{projectId}"})
     int deleteByProject(@Param("projectId") Long projectId);
 }

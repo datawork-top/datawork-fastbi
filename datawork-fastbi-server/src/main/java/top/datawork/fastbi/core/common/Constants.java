@@ -1,6 +1,6 @@
 /*
  * <<
- *  Davinci
+ *  EDP
  *  ==
  *  Copyright (C) 2016 - 2019 EDP
  *  ==
@@ -55,13 +55,13 @@ public class Constants extends Consts {
     /**
      * 用户激活 / 重发激活邮件主题
      */
-    public static final String USER_ACTIVATE_EMAIL_SUBJECT = "[Davinci] 用户激活";
+    public static final String USER_ACTIVATE_EMAIL_SUBJECT = "[FastBI] 用户激活";
 
 
     /**
      * 用户重置密码邮件主题
      */
-    public static final String USER_REST_PASSWORD_EMAIL_SUBJECT = "[Davinci] 重置密码";
+    public static final String USER_REST_PASSWORD_EMAIL_SUBJECT = "[FastBI] 重置密码";
 
     /**
      * 用户头像上传地址
@@ -85,7 +85,7 @@ public class Constants extends Consts {
      * inviter username
      * organization
      */
-    public static final String INVITE_ORG_MEMBER_MAIL_SUBJECT = "[Davinci] %s has invited you to join the %s organization";
+    public static final String INVITE_ORG_MEMBER_MAIL_SUBJECT = "[FastBI] %s has invited you to join the %s organization";
 
     /**
      * 邀请组织成员邮件模板

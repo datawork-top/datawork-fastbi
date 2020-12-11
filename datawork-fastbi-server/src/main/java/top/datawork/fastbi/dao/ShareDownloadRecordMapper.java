@@ -10,18 +10,19 @@ import java.util.List;
 
 public interface ShareDownloadRecordMapper {
 
-    @Delete({"DELETE FROM share_download_record WHERE id NOT IN\n" +
+    @Delete({"DELETE FROM fastbi_share_download_record WHERE id NOT IN\n" +
             "(\n" +
             "    SELECT tmp.id\n" +
             "    FROM\n" +
             "    (\n" +
             "        SELECT a1.id\n" +
-            "        FROM share_download_record a1\n" +
+            "        FROM fastbi_share_download_record a1\n" +
             "        INNER JOIN\n" +
             "        (\n" +
             "        SELECT a.uuid, a.`create_time`\n" +
-            "        FROM share_download_record a\n" +
-            "        LEFT JOIN share_download_record b ON a.uuid = b.uuid AND a.create_time <= b.create_time\n" +
+            "        FROM fastbi_share_download_record a\n" +
+            "        LEFT JOIN fastbi_share_download_record b " +
+            "        ON a.uuid = b.uuid AND a.create_time <= b.create_time\n" +
             "        WHERE a.create_time > DATE_FORMAT((NOW() - INTERVAL 2 DAY),'%Y%m%d')\n" +
             "        AND b.create_time > DATE_FORMAT((NOW() - INTERVAL 2 DAY),'%Y%m%d')\n" +
             "        GROUP BY a.uuid, a.create_time\n" +
@@ -36,17 +37,21 @@ public interface ShareDownloadRecordMapper {
     int insertSelective(ShareDownloadRecord record);
 
     @Select({
-            "SELECT * FROM share_download_record WHERE id = #{id, jdbcType=BIGINT} and `uuid` = #{uuid, jdbcType=VARCHAR}"
+            "SELECT * FROM fastbi_share_download_record " +
+                    "WHERE id = #{id, jdbcType=BIGINT} and `uuid` = #{uuid, jdbcType=VARCHAR}"
     })
     ShareDownloadRecord getShareDownloadRecordBy(@Param("id") Long id,  @Param("uuid") String uuid);
 
     @Select({
-            "SELECT * FROM share_download_record WHERE `uuid` = #{uuid, jdbcType=VARCHAR} and create_time > DATE_FORMAT((NOW() - INTERVAL 2 DAY),'%Y%m%d') order by create_time desc limit 10"
+            "SELECT * FROM fastbi_share_download_record " +
+            "WHERE `uuid` = #{uuid, jdbcType=VARCHAR} " +
+            "and create_time > DATE_FORMAT((NOW() - INTERVAL 2 DAY),'%Y%m%d') " +
+            "order by create_time desc limit 10"
     })
     List<ShareDownloadRecord> getShareDownloadRecordsByUuid(@Param("uuid") String uuid);
 
     @Update({
-            "update share_download_record",
+            "update fastbi_share_download_record",
             "set path = #{path,jdbcType=VARCHAR},",
             "status = #{status,jdbcType=SMALLINT},",
             "last_download_time = #{lastDownloadTime,jdbcType=TIMESTAMP}",
@@ -54,18 +59,19 @@ public interface ShareDownloadRecordMapper {
     })
     int updateById(ShareDownloadRecord record);
 
-    @Select({"SELECT * FROM share_download_record WHERE id NOT IN\n" +
+    @Select({"SELECT * FROM fastbi_share_download_record WHERE id NOT IN\n" +
             "(\n" +
             "    SELECT tmp.id\n" +
             "    FROM\n" +
             "    (\n" +
             "        SELECT a1.id\n" +
-            "        FROM share_download_record a1\n" +
+            "        FROM fastbi_share_download_record a1\n" +
             "        INNER JOIN\n" +
             "        (\n" +
             "        SELECT a.uuid, a.`create_time`\n" +
-            "        FROM share_download_record a\n" +
-            "        LEFT JOIN share_download_record b ON a.uuid = b.uuid AND a.create_time <= b.create_time\n" +
+            "        FROM fastbi_share_download_record a\n" +
+            "        LEFT JOIN fastbi_share_download_record b " +
+            "        ON a.uuid = b.uuid AND a.create_time <= b.create_time\n" +
             "        WHERE a.create_time > DATE_FORMAT((NOW() - INTERVAL 2 DAY),'%Y%m%d')\n" +
             "        AND b.create_time > DATE_FORMAT((NOW() - INTERVAL 2 DAY),'%Y%m%d')\n" +
             "        GROUP BY a.uuid, a.create_time\n" +

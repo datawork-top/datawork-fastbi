@@ -24,7 +24,7 @@
 
 
 <assembly>
-    <id>release-beta.4</id>
+    <id>release-${project.version}</id>
     <formats>
         <format>zip</format>
     </formats>
@@ -75,7 +75,7 @@
         </fileSet>
         <fileSet>
             <directory>
-                ${project.parent.basedir}/fastbi-ui
+                ${project.parent.basedir}/datawork-fastbi-ui/build
             </directory>
             <outputDirectory>fastbi-ui</outputDirectory>
         </fileSet>

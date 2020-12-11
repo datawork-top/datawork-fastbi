@@ -1,6 +1,6 @@
 /*
  * <<
- *  Davinci
+ *  EDP
  *  ==
  *  Copyright (C) 2016 - 2019 EDP
  *  ==
@@ -42,7 +42,7 @@ public interface RelRoleDisplayMapper {
             "select rru.role_id as roleId, rrd.display_id as vizId",
             "from rel_role_display rrd",
             "       inner join rel_role_user rru on rru.role_id = rrd.role_id",
-            "       inner join display d on d.id = rrd.display_id",
+            "       inner join fastbi_display d on d.id = rrd.display_id",
             "where rru.user_id = #{userId} and rrd.visible = 0 and d.project_id = #{projectId}"
     })
     List<RoleDisableViz> getDisableDisplayByUser(@Param("userId") Long userId, @Param("projectId") Long projectId);
@@ -55,7 +55,7 @@ public interface RelRoleDisplayMapper {
     @Select({
             "select rrd.display_id",
             "from rel_role_display rrd",
-            "inner join display d on d.id = rrd.display_id",
+            "inner join fastbi_display d on d.id = rrd.display_id",
             "where rrd.role_id = #{id} and rrd.visible = 0 and d.project_id = #{projectId}"
     })
     List<Long> getExcludeDisplays(@Param("id") Long id, @Param("projectId") Long projectId);
@@ -68,13 +68,16 @@ public interface RelRoleDisplayMapper {
 
     @Insert({
             "insert rel_role_display (role_id, display_id, visible, create_by, create_time)",
-            "select role_id, ${copyDisplayId}, visible, ${userId}, now() from rel_role_display where display_id = #{originDisplayId}"
+            "select role_id, ${copyDisplayId}, visible, ${userId}, now() " +
+            "from rel_role_display where display_id = #{originDisplayId}"
     })
     int copyRoleRelation(@Param("originDisplayId") Long originDisplayId, @Param("copyDisplayId") Long copyDisplayId, @Param("userId") Long userId);
 
-    @Delete({"delete from rel_role_display where display_id in (select id from display where project_id = #{projectId})"})
+    @Delete({"delete from rel_role_display " +
+            " where display_id in (select id from display where fastbi_project_id = #{projectId})"})
     int deleteByProject(Long projectId);
 
-    @Delete({"delete from rel_role_display where role_id = #{roleId} and display_id in (select id from display where project_id = #{projectId})"})
+    @Delete({"delete from rel_role_display where role_id = #{roleId} " +
+            "and display_id in (select id from fastbi_display where project_id = #{projectId})"})
     int deleteByRoleAndProject(Long roleId, Long projectId);
 }

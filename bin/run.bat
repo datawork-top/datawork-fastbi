@@ -21,7 +21,7 @@ for %%x in ("%FASTBI_HOME%") do set FASTBI_HOME=%%~sx
 
 if "%1" == "start" (
     echo start Davinci Server
-    start "Davinci Server" java -Dfile.encoding=UTF-8 -cp .;%JAVA_HOME%\lib\*;%FASTBI_HOME%\lib\*; edp.DavinciServerApplication --spring.config.additional-location=file:%FASTBI_HOME%\config\application.yml
+    start "Davinci Server" java -Dfile.encoding=UTF-8 -cp .;%JAVA_HOME%\lib\*;%FASTBI_HOME%\lib\*; top.datawork.FastBIServerApplication --spring.config.additional-location=file:%FASTBI_HOME%\config\application.yml
 ) else if "%1" == "stop" (
     echo stop Davinci Server
     taskkill /fi "WINDOWTITLE eq Davinci Server"

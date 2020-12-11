@@ -1,6 +1,6 @@
 /*
  * <<
- *  Davinci
+ *  EDP
  *  ==
  *  Copyright (C) 2016 - 2019 EDP
  *  ==
@@ -33,17 +33,17 @@ public interface RelRoleDisplaySlideWidgetMapper {
 
     int deleteByMemDisplaySlideWidgetIds(@Param("memDisplaySlideWidgetIds") Set<Long> memDisplaySlideWidgetIds);
 
-    @Delete({"delete from rel_role_display_slide_widget where mem_display_slide_widget_id = #{memDisplaySlideWidgetId}"})
+    @Delete({"delete from rel_role_display_slide_widget where fastbi_mem_display_slide_widget_id = #{memDisplaySlideWidgetId}"})
     int deleteByMemDisplaySlideWidgetId(@Param("memDisplaySlideWidgetId") Long memDisplaySlideWidgetId);
 
     @Delete({"delete from rel_role_display_slide_widget where role_id = #{roleId}"})
     int deleteByRoleId(@Param("roleId") Long roleId);
 
-    @Delete({"DELETE rrdsw FROM rel_role_display_slide_widget rrdsw WHERE rrdsw.mem_display_slide_widget_id IN " +
+    @Delete({"DELETE rrdsw FROM rel_role_display_slide_widget rrdsw WHERE rrdsw.fastbi_mem_display_slide_widget_id IN " +
             "( " +
             "SELECT mdsw.id " +
-            "FROM mem_display_slide_widget mdsw " +
-            "INNER JOIN display_slide ds ON ds.id = mdsw.display_slide_id " +
+            "FROM fastbi_mem_display_slide_widget mdsw " +
+            "INNER JOIN fastbi_display_slide ds ON ds.id = mdsw.display_slide_id " +
             "WHERE ds.display_id = #{displayId} " +
             ") "})
     int deleteByDisplayId(@Param("displayId") Long displayId);
@@ -51,7 +51,7 @@ public interface RelRoleDisplaySlideWidgetMapper {
     @Delete({"DELETE rrdsw FROM rel_role_display_slide_widget rrdsw WHERE rrdsw.mem_display_slide_widget_id IN " +
             "( " +
             "SELECT mdsw.id " +
-            "FROM mem_display_slide_widget mdsw " +
+            "FROM fastbi_mem_display_slide_widget mdsw " +
             "WHERE mdsw.display_slide_id = #{slideId} " +
             ") "})
     int deleteBySlideId(@Param("slideId") Long slideId);
@@ -67,9 +67,9 @@ public interface RelRoleDisplaySlideWidgetMapper {
     @Delete({"DELETE rrdsw FROM rel_role_display_slide_widget rrdsw WHERE rrdsw.mem_display_slide_widget_id IN " +
             "( " +
             "SELECT mdsw.id " +
-            "FROM mem_display_slide_widget mdsw " +
-            "INNER JOIN display_slide ds ON ds.id = mdsw.display_slide_id " +
-            "INNER JOIN display d ON d.id = ds.display_id " +
+            "FROM fastbi_mem_display_slide_widget mdsw " +
+            "INNER JOIN fastbi_display_slide ds ON ds.id = mdsw.display_slide_id " +
+            "INNER JOIN fastbi_display d ON d.id = ds.display_id " +
             "WHERE d.project_id = #{projectId} " +
             ") "})
     int deleteByProject(@Param("projectId") Long projectId);
@@ -77,9 +77,9 @@ public interface RelRoleDisplaySlideWidgetMapper {
     @Delete({"DELETE rrdsw FROM rel_role_display_slide_widget rrdsw WHERE rrdsw.role_id = #{roleId} and rrdsw.mem_display_slide_widget_id IN " +
         "( " +
         "SELECT mdsw.id " +
-        "FROM mem_display_slide_widget mdsw " +
-        "INNER JOIN display_slide ds ON ds.id = mdsw.display_slide_id " +
-        "INNER JOIN display d ON d.id = ds.display_id " +
+        "FROM fastbi_mem_display_slide_widget mdsw " +
+        "INNER JOIN fastbi_display_slide ds ON ds.id = mdsw.display_slide_id " +
+        "INNER JOIN fastbi_display d ON d.id = ds.display_id " +
         "WHERE d.project_id = #{projectId} " +
         ") "})
     int deleteByRoleAndProject(Long roleId, Long projectId);

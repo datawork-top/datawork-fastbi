@@ -1,6 +1,6 @@
 /*
  * <<
- *  Davinci
+ *  EDP
  *  ==
  *  Copyright (C) 2016 - 2019 EDP
  *  ==
@@ -572,7 +572,7 @@ public class UserServiceImpl extends BaseEntityService implements UserService {
                 }
                 user = userMapper.selectByUsername(email);
                 if (user == null) {
-                    throw new ServerException("The current email is not registered in Davinci");
+                    throw new ServerException("The current email is not registered in FastBI");
                 }
                 break;
             case USERNAME:
@@ -582,7 +582,7 @@ public class UserServiceImpl extends BaseEntityService implements UserService {
                 }
                 user = userMapper.selectByUsername(username);
                 if (user == null) {
-                    throw new ServerException("The current username is not registered in Davinci");
+                    throw new ServerException("The current username is not registered in FastBI");
                 }
                 break;
             default:

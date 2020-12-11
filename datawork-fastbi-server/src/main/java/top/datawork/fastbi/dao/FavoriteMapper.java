@@ -1,6 +1,6 @@
 /*
  * <<
- *  Davinci
+ *  EDP
  *  ==
  *  Copyright (C) 2016 - 2019 EDP
  *  ==
@@ -32,16 +32,16 @@ public interface FavoriteMapper {
 
     int insert(Favorite favorite);
 
-    @Delete({"delete from favorite where id = #{id,jdbcType=BIGINT}"})
+    @Delete({"delete from fastbi_favorite where id = #{id,jdbcType=BIGINT}"})
     int deleteById(Long id);
 
-    @Delete({"delete from favorite where id = #{id,jdbcType=BIGINT}"})
+    @Delete({"delete from fastbi_favorite where id = #{id,jdbcType=BIGINT}"})
     int delete(@Param("userId") Long userId, @Param("projectId") Long projectId);
 
     @Select({
             "select",
             "id, user_id, project_id, create_time",
-            "from favorite",
+            "from fastbi_favorite",
             "where id = #{id,jdbcType=BIGINT}"
     })
     Favorite selectById(Long id);

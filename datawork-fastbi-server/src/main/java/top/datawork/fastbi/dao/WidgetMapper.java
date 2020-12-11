@@ -1,6 +1,6 @@
 /*
  * <<
- *  Davinci
+ *  EDP
  *  ==
  *  Copyright (C) 2016 - 2019 EDP
  *  ==
@@ -37,19 +37,19 @@ import java.util.Set;
 public interface WidgetMapper {
     int insert(Widget widget);
 
-    @Delete({"delete from widget where id = #{id}"})
+    @Delete({"delete from fastbi_widget where id = #{id}"})
     int deleteById(@Param("id") Long id);
 
-    @Select({"select * from widget where id = #{id}"})
+    @Select({"select * from fastbi_widget where id = #{id}"})
     Widget getById(@Param("id") Long id);
 
-    @Select({"select id, name, description, view_id, type, config from widget where id = #{id}"})
+    @Select({"select id, name, description, view_id, type, config from fastbi_widget where id = #{id}"})
     SimpleShareWidget getShareWidgetById(@Param("id") Long id);
 
     int insertBatch(@Param("list") List<Widget> list);
 
     @Update({
-            "update widget",
+            "update fastbi_widget",
             "set `name` = #{name,jdbcType=VARCHAR},",
             "`description` = #{description,jdbcType=VARCHAR},",
             "`view_id` = #{viewId,jdbcType=BIGINT},",
@@ -61,48 +61,50 @@ public interface WidgetMapper {
             "`update_time` = #{updateTime,jdbcType=TIMESTAMP}",
             "where id = #{id,jdbcType=BIGINT}"
     })
-    int update(Widget widget);
+    int update(Widget fastbi_widget);
 
     List<Widget> getByIds(@Param("list") Set<Long> ids);
 
     Set<Long> getIdSetByIds(@Param("set") Set<Long> ids);
 
     @Select({
-            "SELECT  w.*, s.id as 'vizId', s.index as 'vizIndex' FROM widget w ",
-            "LEFT JOIN mem_display_slide_widget m on w.id = m.widget_id",
-            "LEFT JOIN display_slide s on m.display_slide_id = s.id",
+            "SELECT  w.*, s.id as 'vizId', s.index as 'vizIndex' FROM fastbi_widget w ",
+            "LEFT JOIN fastbi_mem_display_slide_widget m on w.id = m.widget_id",
+            "LEFT JOIN fastbi_display_slide s on m.display_slide_id = s.id",
             "WHERE s.display_id = #{displayId} order by m.create_time",
     })
     List<WidgetWithVizId> queryByDisplayId(@Param("displayId") Long displayId);
 
     @Select({
-            "SELECT  w.* FROM widget w ",
-            "LEFT JOIN mem_display_slide_widget m on w.id = m.widget_id",
-            "LEFT JOIN display_slide s on m.display_slide_id = s.id",
+            "SELECT  w.* FROM fastbi_widget w ",
+            "LEFT JOIN fastbi_mem_display_slide_widget m on w.id = m.widget_id",
+            "LEFT JOIN fastbi_display_slide s on m.display_slide_id = s.id",
             "WHERE s.display_id = #{displayId}"
     })
     Set<SimpleShareWidget> getShareWidgetsByDisplayId(@Param("displayId") Long displayId);
 
-    @Select({"select id from widget where project_id = #{projectId} and `name` = #{name}"})
+    @Select({"select id from fastbi_widget where project_id = #{projectId} and `name` = #{name}"})
     Long getByNameWithProjectId(@Param("name") String name, @Param("projectId") Long projectId);
 
-    @Select({"select w.*, v.name as 'viewName' from widget w",
-            "LEFT JOIN view v on v.id = w.view_id",
+    @Select({"select w.*, v.name as 'viewName' from fastbi_widget w",
+            "LEFT JOIN fastbi_view v on v.id = w.view_id",
             "where w.project_id = #{projectId}"})
     List<WidgetWithViewName> getByProject(@Param("projectId") Long projectId);
 
-    @Select({"SELECT w.*, m.id as 'relationId' FROM mem_dashboard_widget m LEFT JOIN widget w on w.id = m.widget_Id WHERE m.dashboard_id = #{dashboardId} order by m.create_time"})
+    @Select({"SELECT w.*, m.id as 'relationId' FROM fastbi_mem_dashboard_widget m " +
+            "LEFT JOIN fastbi_widget w on w.id = m.widget_Id " +
+            "WHERE m.dashboard_id = #{dashboardId} order by m.create_time"})
     List<WidgetWithRelationDashboardId> getByDashboard(@Param("dashboardId") Long dashboardId);
 
-    @Select({"SELECT w.* FROM mem_dashboard_widget m ",
-            "LEFT JOIN widget w on w.id = m.widget_Id ",
+    @Select({"SELECT w.* FROM fastbi_mem_dashboard_widget m ",
+            "LEFT JOIN fastbi_widget w on w.id = m.widget_Id ",
             "WHERE m.dashboard_id = #{dashboardId}"})
     Set<SimpleShareWidget> getShareWidgetsByDashboard(@Param("dashboardId") Long dashboardId);
 
-    @Delete({"delete from widget where project_id = #{projectId}"})
+    @Delete({"delete from fastbi_widget where project_id = #{projectId}"})
     int deleteByProject(@Param("projectId") Long projectId);
 
-    @Select({"select * from widget where view_id = #{viewId}"})
+    @Select({"select * from fastbi_widget where view_id = #{viewId}"})
     List<Widget> getWidgetsByView(@Param("viewId") Long viewId);
 
     int updateConfigBatch(@Param("list") List<Widget> list);

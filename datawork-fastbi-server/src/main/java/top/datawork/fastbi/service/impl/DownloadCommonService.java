@@ -1,6 +1,6 @@
 /*
  * <<
- *  Davinci
+ *  EDP
  *  ==
  *  Copyright (C) 2016 - 2019 EDP
  *  ==
@@ -90,7 +90,7 @@ public class DownloadCommonService {
             Set<Long> widgetIds = mdw.stream().filter(Objects::nonNull).map(MemDashboardWidget::getWidgetId).collect(Collectors.toSet());
             List<Widget> widgets = widgetMapper.getByIds(widgetIds);
             if (!CollectionUtils.isEmpty(widgets)) {
-                // order by mem_dashboard_widget create_time
+                // order by fastbi_mem_dashboard_widget create_time
                 widgets = orderBy(mdw, widgets);
                 Map<Long, MemDashboardWidget> map = mdw.stream().collect(Collectors.toMap(o -> o.getWidgetId(), o -> o, (oldV, newV) -> oldV));
                 widgets.stream().forEach(t -> {
